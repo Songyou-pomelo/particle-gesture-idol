@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="由手势控制的人物轮廓粒子实验。" />
+    <meta name="theme-color" content="#080808" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%23080808'/%3E%3Ccircle cx='20' cy='22' r='4' fill='%23ff4f64'/%3E%3Ccircle cx='35' cy='16' r='3' fill='%23f5f2eb'/%3E%3Ccircle cx='43' cy='34' r='5' fill='%237ce8d5'/%3E%3Ccircle cx='25' cy='43' r='3' fill='%23f5f2eb'/%3E%3C/svg%3E" />
+    <title>粒界 · Gesture Particle</title>
+    <link rel="stylesheet" href="./style.css?v=13" />
+  </head>
+  <body>
+    <main class="stage" aria-label="手势粒子实验">
+      <canvas id="particleCanvas"></canvas>
+      <video id="cameraFeed" playsinline muted aria-hidden="true"></video>
+
+      <header class="topbar">
+        <div class="brand">
+          <span class="brand-mark" aria-hidden="true"></span>
+        </div>
+
+        <div class="status" id="status" role="status">
+          <span class="status-dot"></span>
+          <span class="sr-only" id="statusText">鼠标模式</span>
+        </div>
+      </header>
+
+      <aside class="control-panel collapsed" aria-label="粒子控制">
+        <div class="panel-head">
+          <button class="icon-button" id="togglePanel" type="button" aria-label="展开控制面板" title="展开控制面板">+</button>
+        </div>
+
+        <div class="panel-body" id="panelBody">
+          <div class="control-row">
+            <span>摄像头手势</span>
+            <label class="switch">
+              <input id="cameraToggle" type="checkbox" />
+              <span aria-hidden="true"></span>
+            </label>
+          </div>
+
+          <div class="control-group">
+            <label for="sensitivity">动作幅度 <output id="sensitivityValue">68</output></label>
+            <input id="sensitivity" type="range" min="30" max="100" value="68" />
+          </div>
+
+          <label class="upload-button" for="imageUpload">
+            <span>上传轮廓参考</span>
+            <span aria-hidden="true">＋</span>
+          </label>
+          <input id="imageUpload" type="file" accept="image/*" hidden />
+
+          <button class="text-button" id="resetButton" type="button">恢复默认人物</button>
+        </div>
+      </aside>
+
+    </main>
+
+    <button class="gesture-button" id="gestureButton" type="button" aria-label="开启手势控制" title="开启手势控制">
+      <span class="gesture-icon" aria-hidden="true"></span>
+    </button>
+
+    <button class="record-button" id="recordButton" type="button" aria-label="开始录制" title="开始录制">
+      <span class="record-icon" aria-hidden="true"></span>
+    </button>
+
+    <div class="camera-notice" id="cameraNotice" role="status" aria-live="polite"></div>
+
+    <span class="hand-cursor" id="handCursorA" aria-hidden="true"></span>
+    <span class="hand-cursor" id="handCursorB" aria-hidden="true"></span>
+
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "./vendor/three/build/three.module.js",
+          "three/addons/": "./vendor/three/examples/jsm/"
+        }
+      }
+    </script>
+    <script>
+      window.__particleAppReady = false;
+      const bootNotice = document.querySelector("#cameraNotice");
+      window.addEventListener("error", (event) => {
+        bootNotice.textContent = `页面初始化失败：${event.message || "未知错误"}`;
+        bootNotice.classList.add("visible", "error");
+      });
+      window.addEventListener("unhandledrejection", (event) => {
+        bootNotice.textContent = `页面初始化失败：${event.reason?.message || event.reason || "未知错误"}`;
+        bootNotice.classList.add("visible", "error");
+      });
+      setTimeout(() => {
+        if (!window.__particleAppReady) {
+          bootNotice.textContent = "粒子引擎未能启动，请刷新页面";
+          bootNotice.classList.add("visible", "error");
+        }
+      }, 5000);
+    </script>
+    <script type="module" src="./app-webgl.js?v=18"></script>
+  </body>
+</html>

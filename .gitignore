@@ -1,0 +1,21 @@
+assets/galaxies/
+
+# Keep only the browser runtime files required by this static demo.
+vendor/*
+!vendor/hand_landmarker.task
+!vendor/tasks-vision/
+vendor/tasks-vision/*
+!vendor/tasks-vision/vision_bundle.mjs
+!vendor/tasks-vision/wasm/
+vendor/tasks-vision/wasm/*
+!vendor/tasks-vision/wasm/vision_wasm_internal.js
+!vendor/tasks-vision/wasm/vision_wasm_internal.wasm
+!vendor/tasks-vision/wasm/vision_wasm_nosimd_internal.js
+!vendor/tasks-vision/wasm/vision_wasm_nosimd_internal.wasm
+!vendor/three/
+vendor/three/*
+!vendor/three/LICENSE
+!vendor/three/build/
+vendor/three/build/*
+!vendor/three/build/three.module.js
+
