@@ -2,6 +2,8 @@
 
 一个可直接在 VS Code 里运行的 WebGL 手势粒子人物实验。
 
+![粒界 Gesture Particle 项目预览](docs/preview.png)
+
 ## 运行
 
 推荐使用 VS Code 的 Live Server 扩展打开 `index.html`。
