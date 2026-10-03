@@ -397,7 +397,7 @@ imageUpload.addEventListener("change", () => {
     state.sourceImage = image;
     buildParticleTargets(image);
     burst(state.width * 0.56, state.height * 0.5, 0.9, 120);
-    statusText.textContent = "参考图已粒子化";
+    statusText.textContent = "自定义轮廓已粒子化";
     URL.revokeObjectURL(image.src);
   };
   image.src = URL.createObjectURL(file);
